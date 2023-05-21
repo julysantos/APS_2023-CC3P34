@@ -6,26 +6,10 @@ public class Main extends JFrame{
      public Main(String title) {
          super("jorge");
          this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         this.pack();
+         this.setBounds(0,0, 500,500);
 
-         Container container = this.getRootPane();
-         container.setLayout(new FlowLayout());
-
-         JTextField textField = new JTextField();
-         textField.setPreferredSize(new Dimension(150, 25));
-
-         JLabel label = new JLabel("");
-
-         JButton okButton = new JButton("OK");
-         okButton.addActionListener(e -> {
-             label.setText("eu te amo");
-             TelaJogo tj = new TelaJogo("jorge");
-         });
-
-         container.add(textField);
-         container.add(okButton);
-         container.add(label);
-
+         TelaInicial menu = new TelaInicial();
+         this.setContentPane(menu);
          this.setVisible(true);
      }
 

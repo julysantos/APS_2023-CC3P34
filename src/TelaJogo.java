@@ -6,14 +6,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class TelaJogo extends JFrame implements Runnable {
+public class TelaJogo extends JPanel implements Runnable {
 
-    public TelaJogo(String title) {
-        super(title);
+    public TelaJogo() {
         setSize(500, 500);
         setVisible(true);
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
+    private boolean rodando = true;
     private boolean jogando = true;
 
     ArrayList<Reciclaveis> reciclaveis = new ArrayList<>();
@@ -47,50 +49,55 @@ public class TelaJogo extends JFrame implements Runnable {
 
     // metódo gerando a logica do jogo
     public void logicaJogo() {
+        System.out.println("amogus");
         while (getRodando()) {
 
             //nao apagar
-            System.out.print("");
-            while (getJogando()) {
-                telaJogo.repaint();
+            System.out.print("sus");
+            try {
+                while (getJogando()) {
+                    telaJogo.repaint();
 
-                // movimenta os reciclaveis
-                for (Reciclaveis c : reciclaveis) {
-                    c.movimetar();
+                    // movimenta os reciclaveis
+                    for (Reciclaveis c : reciclaveis) {
+                        c.movimetar();
 
-                    // verifica o contato dos reciclaveis com a lixeira (mecanica acerto/erro)
-                    if (lixeira.contato(c)) { // acerto
-                        if (c.getTipoCirculo().equals(lixeira.getEstado())) {
-                            pontos[0]++;
-                            combo++;
-                            System.out.println("pontuação: " + pontos[0]);
-                            reciclaveis.remove(c);
-                            reciclaveis.add(new Reciclaveis(500, 65, 50, 50, c.getVelocidadeX(), 0));
-                            // aumenta o nível e a velocidade do jogo
-                            for (Reciclaveis co : reciclaveis) {
-                                if (combo % 5 == 0 && level < 10) {
-                                    level++;
-                                    co.setVelocidadeX((-5) - pontos[0]);
+                        // verifica o contato dos reciclaveis com a lixeira (mecanica acerto/erro)
+                        if (lixeira.contato(c)) { // acerto
+                            if (c.getTipoCirculo().equals(lixeira.getEstado())) {
+                                pontos[0]++;
+                                combo++;
+                                System.out.println("pontuação: " + pontos[0]);
+                                reciclaveis.remove(c);
+                                reciclaveis.add(new Reciclaveis(500, 65, 50, 50, c.getVelocidadeX(), 0));
+                                // aumenta o nível e a velocidade do jogo
+                                for (Reciclaveis co : reciclaveis) {
+                                    if (combo % 5 == 0 && level < 10) {
+                                        level++;
+                                        co.setVelocidadeX((-5) - pontos[0]);
+                                    }
+                                }
+                                System.out.println("nível: " + level);
+                                System.out.println("velocidade: " + c.getVelocidadeX());
+                            } else { // errar ao escolher a cor errada da lixeira
+                                if (!lixeira.getEstado().equals("comum")) {
+                                    erroJogo();
                                 }
                             }
-                            System.out.println("nível: " + level);
-                            System.out.println("velocidade: " + c.getVelocidadeX());
-                        } else { // errar ao escolher a cor errada da lixeira
-                            if (!lixeira.getEstado().equals("comum")) {
-                                erroJogo();
-                            }
+                        }
+                        if (c.getX() <= 0) { // errar ao deixar o reciclavel passar
+                            erroJogo();
+                        }
+                        // delay no jogo pra ele nao ser ultra rapido (quase invisivel)
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
                         }
                     }
-                    if (c.getX() <= 0) { // errar ao deixar o reciclavel passar
-                        erroJogo();
-                    }
-                    // delay no jogo pra ele nao ser ultra rapido (quase invisivel)
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
                 }
+            } catch (Exception e) {
+                System.out.println(e);
             }
         }
     }
@@ -138,13 +145,15 @@ public class TelaJogo extends JFrame implements Runnable {
     }
 
     public boolean getRodando() {
-        return true;
+        return rodando;
     }
 
     @Override
     public void run() {
-        this.getContentPane().add(telaJogo);
-        this.setVisible(true);
+        this.add(telaJogo);
         this.addKeyListener(keyListener);
+        this.setJogando(true);
+        this.setVisible(true);
+        this.logicaJogo();
     }
 }

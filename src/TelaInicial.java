@@ -5,31 +5,26 @@ import javax.swing.*;
 public class TelaInicial extends JPanel{
 
     public TelaInicial(){
+        
+        this.setSize(500, 500);
 
-        JPanel menu = new JPanel();
-        menu.setSize(500, 400);
-
-        Container container = menu.getRootPane();
+        Container container = this;
         container.setLayout(new FlowLayout());
 
-        JTextField textField = new JTextField();
-        textField.setPreferredSize(new Dimension(150, 25));
 
-        JLabel label = new JLabel("Input will appear here");
+        JLabel label = new JLabel("jorginho");
 
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton("Jogar");
         okButton.addActionListener(e -> {
-            String input = textField.getText();
-            System.out.println("Input: " + input);
-
-            label.setText(input);
+            JRootPane geleia = this.getRootPane();
+            TelaJogo jogo = new TelaJogo();
+            geleia.setContentPane(jogo);
         });
 
-        container.add(textField);
         container.add(okButton);
         container.add(label);
 
-        menu.setVisible(true);
+        this.setVisible(true);
     }
 
 }
