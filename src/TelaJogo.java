@@ -11,6 +11,7 @@ public class TelaJogo extends JFrame implements Runnable {
     public TelaJogo(String title) {
         super(title);
         setSize(500, 500);
+        setVisible(true);
     }
 
     private boolean jogando = true;
