@@ -15,7 +15,6 @@ public class TelaJogo extends JFrame implements Runnable {
 
     private boolean jogando = true;
 
-
     ArrayList<Reciclaveis> reciclaveis = new ArrayList<>();
     private int[] pontos = new int[]{0};
     private int level = 1;
@@ -145,6 +144,6 @@ public class TelaJogo extends JFrame implements Runnable {
     public void run() {
         this.getContentPane().add(telaJogo);
         this.setVisible(true);
-        this.add(keyListener);
+        this.addKeyListener(keyListener);
     }
 }
