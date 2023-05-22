@@ -24,19 +24,6 @@ public class TelaJogo extends JPanel implements Runnable {
     private int combo = 0;
     private Lixeira lixeira = new Lixeira(60, 60, 60, 60);
 
-    // JPanel renderizando o jogo
-    JPanel telaJogo = new JPanel() {
-        @Override
-        public void paint(Graphics g) {
-            super.paint(g);
-            lixeira.draw(g);
-            for (Reciclaveis r : reciclaveis) {
-                r.draw(g);
-            }
-            setVisible(true);
-        }
-    };
-
 
     public void erroJogo() {
         for (Reciclaveis c : reciclaveis) {
@@ -49,14 +36,13 @@ public class TelaJogo extends JPanel implements Runnable {
 
     // metódo gerando a logica do jogo
     public void logicaJogo() {
-        System.out.println("amogus");
         while (getRodando()) {
 
             //nao apagar
-            System.out.print("sus");
+            System.out.print("");
             try {
                 while (getJogando()) {
-                    telaJogo.repaint();
+                    this.repaint();
 
                     // movimenta os reciclaveis
                     for (Reciclaveis c : reciclaveis) {
@@ -150,10 +136,21 @@ public class TelaJogo extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        this.add(telaJogo);
+        reciclaveis.add(new Reciclaveis(500, 65, 50, 50, -5, 0));
         this.addKeyListener(keyListener);
+        this.setFocusable(true);
+        this.requestFocus();
         this.setJogando(true);
         this.setVisible(true);
         this.logicaJogo();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        lixeira.draw(g);
+        for (Reciclaveis r : reciclaveis) {
+            r.draw(g);
+        }
     }
 }

@@ -1,6 +1,8 @@
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyListener;
+import java.security.Key;
 import javax.swing.*;
 public class TelaInicial extends JPanel{
 
@@ -10,7 +12,6 @@ public class TelaInicial extends JPanel{
 
         Container container = this;
         container.setLayout(new FlowLayout());
-
 
         JLabel label = new JLabel("jorginho");
 

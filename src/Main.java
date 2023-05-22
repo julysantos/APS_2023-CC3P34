@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 
 // nao sei chamar telas mim ser burra
 public class Main extends JFrame{
