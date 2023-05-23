@@ -157,10 +157,10 @@ public class TelaJogo extends JPanel implements Runnable {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        File path = new File("C:\\Users\\Usuario\\IdeaProjects\\circle\\src\\Images\\bg_old.jpg");
-        BufferedImage image = null;
+        File path = new File("src/Images");
+        BufferedImage image;
         try {
-            image = ImageIO.read(new File(path, "bg_old.jpg"));
+            image = ImageIO.read(new File(path,"bg_old.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
