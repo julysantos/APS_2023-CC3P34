@@ -1,12 +1,19 @@
 import Objects.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TelaJogo extends JPanel implements Runnable {
+
+    private final JLabel background = new JLabel("bg_old");
 
     public TelaJogo() {
         setSize(500, 500);
@@ -19,7 +26,7 @@ public class TelaJogo extends JPanel implements Runnable {
     private boolean jogando = true;
 
     ArrayList<Reciclaveis> reciclaveis = new ArrayList<>();
-    private int[] pontos = new int[]{0};
+    private int pontos = 0;
     private int level = 1;
     private int combo = 0;
     private Lixeira lixeira = new Lixeira(60, 60, 60, 60);
@@ -28,7 +35,7 @@ public class TelaJogo extends JPanel implements Runnable {
     public void erroJogo() {
         for (Reciclaveis c : reciclaveis) {
             combo = 0;
-            System.out.println("pontuação: " + pontos[0]);
+            System.out.println("pontuação: " + pontos);
             reciclaveis.add(new Reciclaveis(500, 65, 50, 50, c.getVelocidadeX(), 0));
             reciclaveis.remove(c);
         }
@@ -37,7 +44,6 @@ public class TelaJogo extends JPanel implements Runnable {
     // metódo gerando a logica do jogo
     public void logicaJogo() {
         while (getRodando()) {
-
             //nao apagar
             System.out.print("");
             try {
@@ -51,16 +57,19 @@ public class TelaJogo extends JPanel implements Runnable {
                         // verifica o contato dos reciclaveis com a lixeira (mecanica acerto/erro)
                         if (lixeira.contato(c)) { // acerto
                             if (c.getTipoCirculo().equals(lixeira.getEstado())) {
-                                pontos[0]++;
+                                pontos++;
                                 combo++;
-                                System.out.println("pontuação: " + pontos[0]);
+                                System.out.println("pontuação: " + pontos);
                                 reciclaveis.remove(c);
                                 reciclaveis.add(new Reciclaveis(500, 65, 50, 50, c.getVelocidadeX(), 0));
                                 // aumenta o nível e a velocidade do jogo
                                 for (Reciclaveis co : reciclaveis) {
-                                    if (combo % 5 == 0 && level < 10) {
+                                    if (combo % 5 == 0 && level < 5) {
                                         level++;
-                                        co.setVelocidadeX((-5) - pontos[0]);
+                                        co.setVelocidadeX((-5) - pontos);
+                                    } else if (combo % 5 == 0 && level < 10){
+                                        level++;
+                                        co.setVelocidadeX((-3) -  pontos);
                                     }
                                 }
                                 System.out.println("nível: " + level);
@@ -85,6 +94,7 @@ public class TelaJogo extends JPanel implements Runnable {
             } catch (Exception e) {
                 System.out.println(e);
             }
+            this.repaint();
         }
     }
 
@@ -106,7 +116,6 @@ public class TelaJogo extends JPanel implements Runnable {
             }
             // tecla pause
             if (keyCode == KeyEvent.VK_ESCAPE) {
-                System.out.println("" + getJogando());
                 if (getJogando()) {
                     setJogando(false);
                     System.out.println("jogo pausado");
@@ -148,9 +157,25 @@ public class TelaJogo extends JPanel implements Runnable {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        File path = new File("C:\\Users\\Usuario\\IdeaProjects\\circle\\src\\Images\\bg_old.jpg");
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(path, "bg_old.jpg"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        g.drawImage(image, 0,0, null);
         lixeira.draw(g);
         for (Reciclaveis r : reciclaveis) {
             r.draw(g);
         }
+        g.setColor(Color.black);
+        Font fonte = new Font("Comic Sans MS", Font.BOLD, 32);
+        g.setFont(fonte);
+        if(!jogando){
+            g.drawString("Jogo pausado", 10,450);
+        }
+        g.drawString("Pontuação: " + pontos, 250, 450);
+        g.drawString("Nível: " + level, 250, 415);
     }
 }

@@ -1,6 +1,5 @@
-import javax.swing.*;
+import javax.swing.JFrame;
 
-// nao sei chamar telas mim ser burra
 public class Main extends JFrame{
      public Main(String title) {
          super("jorge");
@@ -10,6 +9,8 @@ public class Main extends JFrame{
          TelaInicial menu = new TelaInicial();
          this.setContentPane(menu);
          this.setVisible(true);
+         this.setResizable(false);
+         this.setFocusable(true);
      }
 
      public static void main(String[] args){
