@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class TelaJogo extends JPanel implements Runnable {
 
                         // verifica o contato dos reciclaveis com a lixeira (mecanica acerto/erro)
                         if (lixeira.contato(c)) { // acerto
-                            if (c.getTipoCirculo().equals(lixeira.getEstado())) {
+                            if (c.getTipoReciclavel().equals(lixeira.getEstado())) {
                                 pontos++;
                                 combo++;
                                 System.out.println("pontuação: " + pontos);
@@ -157,14 +156,14 @@ public class TelaJogo extends JPanel implements Runnable {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        File path = new File("src/Images");
+       /* File path = new File("src/Images");
         BufferedImage image;
         try {
             image = ImageIO.read(new File(path,"bg_old.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        g.drawImage(image, 0,0, null);
+        g.drawImage(image, 0,0, null);*/
         lixeira.draw(g);
         for (Reciclaveis r : reciclaveis) {
             r.draw(g);
