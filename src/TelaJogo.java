@@ -18,6 +18,11 @@ public class TelaJogo extends JPanel implements Runnable {
         setSize(500, 500);
         setVisible(true);
         Thread thread = new Thread(this);
+        try {
+            backgroundImage = ImageIO.read(new File("src/Images","bg_old.jpg"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         thread.start();
     }
 
@@ -29,6 +34,9 @@ public class TelaJogo extends JPanel implements Runnable {
     private int level = 1;
     private int combo = 0;
     private Lixeira lixeira = new Lixeira(60, 60, 60, 60);
+
+    BufferedImage backgroundImage;
+
 
 
     public void erroJogo() {
@@ -156,14 +164,7 @@ public class TelaJogo extends JPanel implements Runnable {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        File path = new File("src/Images");
-        BufferedImage image;
-        try {
-            image = ImageIO.read(new File(path,"bg_old.jpg"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        g.drawImage(image, 0,0, null);
+        g.drawImage(backgroundImage, 0,0, null);
         lixeira.draw(g);
         for (Reciclavel r : reciclaveis) {
             r.draw(g);

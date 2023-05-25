@@ -13,9 +13,6 @@ public class Lixeira extends Desenhavel {
     private final BufferedImage paperBinImg;
     private final BufferedImage metalBinImg;
 
-
-
-
     public Lixeira(int x, int y, int largura, int altura){
         this.setX(x);
         this.setY(y);
