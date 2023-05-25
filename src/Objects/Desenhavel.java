@@ -3,7 +3,6 @@ package Objects;
 import java.awt.*;
 
 public abstract class Desenhavel {
-
     protected int x=0;
     protected int y=0;
     protected int largura=0;
