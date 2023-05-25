@@ -1,7 +1,7 @@
 package Objects;
 import javax.swing.*;
 import java.awt.*;
-public abstract class MoverReciclavel extends JFrame {
+public abstract class  MoverReciclavel extends JFrame {
     private int x = 0;
     private int y = 0;
 

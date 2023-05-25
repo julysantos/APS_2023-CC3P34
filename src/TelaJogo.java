@@ -24,7 +24,7 @@ public class TelaJogo extends JPanel implements Runnable {
     private boolean rodando = true;
     private boolean jogando = true;
 
-    ArrayList<Reciclaveis> reciclaveis = new ArrayList<>();
+    ArrayList<Reciclavel> reciclaveis = new ArrayList<>();
     private int pontos = 0;
     private int level = 1;
     private int combo = 0;
@@ -32,10 +32,10 @@ public class TelaJogo extends JPanel implements Runnable {
 
 
     public void erroJogo() {
-        for (Reciclaveis c : reciclaveis) {
+        for (Reciclavel c : reciclaveis) {
             combo = 0;
             System.out.println("pontuação: " + pontos);
-            reciclaveis.add(new Reciclaveis(500, 65, 50, 50, c.getVelocidadeX(), 0));
+            reciclaveis.add(new Reciclavel(500, 65, 50, 50, c.getVelocidadeX(), 0));
             reciclaveis.remove(c);
         }
     }
@@ -50,7 +50,7 @@ public class TelaJogo extends JPanel implements Runnable {
                     this.repaint();
 
                     // movimenta os reciclaveis
-                    for (Reciclaveis c : reciclaveis) {
+                    for (Reciclavel c : reciclaveis) {
                         c.movimetar();
 
                         // verifica o contato dos reciclaveis com a lixeira (mecanica acerto/erro)
@@ -60,9 +60,9 @@ public class TelaJogo extends JPanel implements Runnable {
                                 combo++;
                                 System.out.println("pontuação: " + pontos);
                                 reciclaveis.remove(c);
-                                reciclaveis.add(new Reciclaveis(500, 65, 50, 50, c.getVelocidadeX(), 0));
+                                reciclaveis.add(new Reciclavel(500, 65, 50, 50, c.getVelocidadeX(), 0));
                                 // aumenta o nível e a velocidade do jogo
-                                for (Reciclaveis co : reciclaveis) {
+                                for (Reciclavel co : reciclaveis) {
                                     if (combo % 5 == 0 && level < 5) {
                                         level++;
                                         co.setVelocidadeX((-5) - pontos);
@@ -144,7 +144,7 @@ public class TelaJogo extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        reciclaveis.add(new Reciclaveis(500, 65, 50, 50, -5, 0));
+        reciclaveis.add(new Reciclavel(500, 65, 50, 50, -5, 0));
         this.addKeyListener(keyListener);
         this.setFocusable(true);
         this.requestFocus();
@@ -165,7 +165,7 @@ public class TelaJogo extends JPanel implements Runnable {
         }
         g.drawImage(image, 0,0, null);
         lixeira.draw(g);
-        for (Reciclaveis r : reciclaveis) {
+        for (Reciclavel r : reciclaveis) {
             r.draw(g);
         }
         g.setColor(Color.black);
