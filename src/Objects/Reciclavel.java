@@ -15,7 +15,7 @@ public class Reciclavel extends Movimentavel{
     private final String[] spritesPaper = {"cardboard_box.png"};
     private final String[] spritesPlastic = {"bottle1.png"};
     private final String[] spritesMetal = {"can.png"};
-    private final String[] spritesGlass = {"glass_jar.png","glass_jar2.jpg"};
+    private final String[] spritesGlass = {"glass_jar.png","glass_jar2.jpg","glass_bottle.png"};
 
 
 

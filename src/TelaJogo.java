@@ -12,14 +12,14 @@ import java.util.ArrayList;
 
 public class TelaJogo extends JPanel implements Runnable {
 
-    private final JLabel background = new JLabel("bg_old");
-
     public TelaJogo() {
         setSize(500, 500);
         setVisible(true);
         Thread thread = new Thread(this);
         try {
             backgroundImage = ImageIO.read(new File("src/Images","bg_old.jpg"));
+            conveyor = ImageIO.read(new File("src/Images","conveyor.png"));
+            containerGame = ImageIO.read(new File("src/Images", "container_game.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -33,11 +33,11 @@ public class TelaJogo extends JPanel implements Runnable {
     private int pontos = 0;
     private int level = 1;
     private int combo = 0;
-    private Lixeira lixeira = new Lixeira(60, 60, 60, 60);
+    private Lixeira lixeira = new Lixeira(50, 80, 60, 60);
 
     BufferedImage backgroundImage;
-
-
+    BufferedImage conveyor;
+    BufferedImage containerGame;
 
     public void erroJogo() {
         for (Reciclavel c : reciclaveis) {
@@ -68,7 +68,7 @@ public class TelaJogo extends JPanel implements Runnable {
                                 combo++;
                                 System.out.println("pontuação: " + pontos);
                                 reciclaveis.remove(c);
-                                reciclaveis.add(new Reciclavel(500, 65, 50, 50, c.getVelocidadeX(), 0));
+                                reciclaveis.add(new Reciclavel(500, 65, 50, 50, c.getVelocidadeX(), c.getVelocidadeY()));
                                 // aumenta o nível e a velocidade do jogo
                                 for (Reciclavel co : reciclaveis) {
                                     if (combo % 5 == 0 && level < 5) {
@@ -165,17 +165,23 @@ public class TelaJogo extends JPanel implements Runnable {
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(backgroundImage, 0,0, null);
+        g.drawImage(conveyor, 100,106,null);
+        g.drawImage(containerGame, 42,250, null);
         lixeira.draw(g);
         for (Reciclavel r : reciclaveis) {
             r.draw(g);
         }
         g.setColor(Color.black);
-        Font fonte = new Font("Comic Sans MS", Font.BOLD, 32);
+        Font fonte = new Font("Comic Sans MS", Font.BOLD, 24);
         g.setFont(fonte);
-        if(!jogando){
-            g.drawString("Jogo pausado", 10,450);
+        if(level < 2){
+            g.drawString("Utilize as teclas WASD",87,285);
+            g.drawString("para controlar a lixeira!",87, 309);
         }
-        g.drawString("Pontuação: " + pontos, 250, 450);
-        g.drawString("Nível: " + level, 250, 415);
+        if(!jogando){
+            g.drawString("Jogo pausado", 57,433);
+        }
+        g.drawString("Pontuação: " + pontos, 245, 433);
+        g.drawString("Nível: " + level, 245, 410);
     }
 }

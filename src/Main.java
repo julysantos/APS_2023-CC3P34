@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame{
      public Main(String title) {
-         super("jorge");
+         super("Jogo APS 2023");
          this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          this.setBounds(500,120, 500,500);
 
@@ -15,6 +15,6 @@ public class Main extends JFrame{
      }
 
      public static void main(String[] args){
-        Main m = new Main("Jorge");
+        Main m = new Main("Jogo APS 2023");
      }
 }

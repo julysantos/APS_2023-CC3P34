@@ -10,7 +10,7 @@ public abstract class  MoverReciclavel extends JFrame {
     public void paint(Graphics c) {
         super.paint(c);
         c.setColor(Color.yellow);
-        c.fillOval(this.getX(), 0 + this.getY(), 50, 50);
+        c.fillOval(this.getX(), this.getY(), 50, 50);
     }
 
     @Override
