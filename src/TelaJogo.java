@@ -156,14 +156,14 @@ public class TelaJogo extends JPanel implements Runnable {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-       /* File path = new File("src/Images");
+        File path = new File("src/Images");
         BufferedImage image;
         try {
             image = ImageIO.read(new File(path,"bg_old.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        g.drawImage(image, 0,0, null);*/
+        g.drawImage(image, 0,0, null);
         lixeira.draw(g);
         for (Reciclaveis r : reciclaveis) {
             r.draw(g);

@@ -4,7 +4,7 @@ public class Main extends JFrame{
      public Main(String title) {
          super("jorge");
          this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         this.setBounds(0,0, 500,500);
+         this.setBounds(500,120, 500,500);
 
          TelaInicial menu = new TelaInicial();
          this.setContentPane(menu);
