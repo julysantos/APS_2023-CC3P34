@@ -11,6 +11,7 @@ public class Main extends JFrame{
          this.setVisible(true);
          this.setResizable(false);
          this.setFocusable(true);
+         this.requestFocus();
      }
 
      public static void main(String[] args){
