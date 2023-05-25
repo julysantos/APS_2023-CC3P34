@@ -40,6 +40,7 @@ public class Lixeira extends Desenhavel {
             String commonBinName = "common_bin.png";
             commonBinImg= ImageIO.read(new File(imagesPath, commonBinName));
         }catch (IOException e){
+            System.err.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }

@@ -78,6 +78,7 @@ public class Reciclavel extends Movimentavel{
 
             }
         }catch (IOException e){
+            System.err.println(e.getMessage());
             throw new RuntimeException(e);
         }
 
