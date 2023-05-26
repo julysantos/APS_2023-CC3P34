@@ -37,7 +37,6 @@ public class TelaInicial extends JPanel{
         super.paint(g);
         setBackground(new Color(105, 209, 150));
         g.drawImage(container_img, 45,30, null);
-        //g.drawRoundRect(45,30,400,400,25,25);
         g.setColor(Color.black);
         Font fonte = new Font("Comic Sans MS",Font.BOLD, 54);
         g.setFont(fonte);
